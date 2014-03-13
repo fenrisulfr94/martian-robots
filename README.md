@@ -1,7 +1,11 @@
 martian-robots
 ==============
 
-This program is for the Red Badger developer coding challenge.
+This program is for the Red Badger developer coding challenge.  At the moment, only basic functionality is in place.  To run the program, open up a terminal and type:
+
+<pre><code>ghci robots.hs</code></pre>
+
+(Provided you've got GHC installed.)
 
 Specification
 ============= 
