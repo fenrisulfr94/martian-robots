@@ -66,8 +66,8 @@ forward ((x, y), b, l) =
 move :: Robot -> Instruction -> Robot
 move r instr =
 	case instr of
-		L -> left 		r
-		R -> right 		r
+		L -> left 	r
+		R -> right 	r
 		F -> forward 	r
 
 -- Fold 'move' over a single robot and its input
