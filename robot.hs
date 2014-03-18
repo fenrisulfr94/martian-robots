@@ -1,6 +1,6 @@
 {- Martian Robots -}
 
-
+import Data.List
 ------------------- Robot Definition -----------------
 ------------------------------------------------------
 
@@ -34,16 +34,19 @@ type Scent = [(Position, Bearing)]
 ------------------------------------------------------
 
 -- Handle 'L' instructions
-rotateLeft :: Robot -> Robot
-rotateLeft ((x, y), b, l)
+-- Rotate robot counter-clockwise with respect to 
+-- its bearing
+left :: Robot -> Robot
+left ((x, y), b, l)
 		| b == N = ((x, y), W, l)  
 		| b == S = ((x, y), E, l)
 		| b == E = ((x, y), N, l)
 		| b == W = ((x, y), S, l)
 
 -- Handle 'R' instructions
-rotateRight :: Robot -> Robot
-rotateRight ((x, y), b, l) 
+-- Rotate robot clockwise with respect to its bearing
+right :: Robot -> Robot
+right ((x, y), b, l) 
 		| b == N = ((x, y), E, l)
 		| b == S = ((x, y), W, l)
 		| b == E = ((x, y), S, l)
@@ -52,14 +55,17 @@ rotateRight ((x, y), b, l)
 -- Move robot forward with respect to its bearing
 forward :: Robot -> Robot
 forward ((x, y), b, l) 
-		| b == N = ((x + 1, y), b, l)  
-		| b == S = ((x - 1, y), b, l)
-		| b == E = ((x, y + 1), b, l)
-		| b == W = ((x, y + 1), b, l)
+		| b == N = ((x, y + 1), b, l)  
+		| b == S = ((x, y - 1), b, l)
+		| b == E = ((x + 1, y), b, l)
+		| b == W = ((x - 1, y), b, l)
 
 move :: Robot -> Instruction -> Robot
 move r instr 
-	| instr == L = rotateLeft r
-	| instr == R = rotateRight r
-	| instr == F = forward r
+	| instr == L = left 	r
+	| instr == R = right 	r
+	| instr == F = forward 	r
+
+exec :: Robot -> [Instruction] -> Robot
+exec r is = foldl move r is 
 
